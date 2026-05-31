@@ -38,7 +38,7 @@ function VideoPlayer({ src, className = '', priority = false }: VideoPlayerProps
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [priority])
+  }, [priority, handleEnded])
 
   return (
     <video

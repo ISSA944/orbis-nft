@@ -34,6 +34,7 @@ function NFTCard({ url, score }: NFTCardProps) {
           </p>
         </div>
         <button
+          type="button"
           aria-label="View NFT details"
           className="w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] shadow-lg shadow-purple-500/50 flex items-center justify-center hover:scale-110 transition-transform flex-shrink-0 cursor-pointer"
         >
