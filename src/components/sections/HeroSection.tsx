@@ -1,74 +1,121 @@
-import VideoPlayer from '../shared/VideoPlayer'
-import SocialIcons from '../shared/SocialIcons'
-import { NAV_LINKS } from '../../constants/nav'
-import { FONT, FONT_SIZE, COLORS } from '../../constants/styles'
+import { lazy, Suspense, useCallback } from 'react'
+import { ArrowRight, Play } from 'lucide-react'
+import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Spotlight } from '@/components/hero/Spotlight'
+import { HeroNav } from '@/components/hero/HeroNav'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
-const HERO_VIDEO = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_045634_e1c98c76-1265-4f5c-882a-4276f2080894.mp4'
+const SplineScene = lazy(() =>
+  import('@/components/hero/SplineScene').then((m) => ({ default: m.SplineScene }))
+)
+
+const SPLINE_URL = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode'
+
+function MobileVisualPlaceholder() {
+  return (
+    <div
+      className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.08),transparent_70%)]"
+      aria-hidden="true"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(167,139,250,0.15),transparent_60%)]" />
+    </div>
+  )
+}
 
 export default function HeroSection() {
+  const isDesktop = useMediaQuery('(min-width: 768px)')
+
+  const scrollToGallery = useCallback(() => {
+    document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [])
+
+  const scrollToAbout = useCallback(() => {
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [])
+
   return (
-    <section className="relative w-full h-screen overflow-hidden rounded-b-[32px]">
-      <VideoPlayer
-        src={HERO_VIDEO}
-        priority
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+    <section className="w-full bg-black">
+      <HeroNav />
 
-      <div className="relative z-10 h-full flex flex-col max-w-[1831px] mx-auto px-5 sm:px-8 lg:px-12">
-        {/* Header */}
-        <div className="flex items-center justify-between pt-7 lg:pt-9">
-          <span
-            className="uppercase tracking-wide"
-            style={{ ...FONT.anton, ...FONT_SIZE.logo, color: COLORS.cream }}
-          >
-            ORBIS.NFT
-          </span>
+      <div className="px-4 md:px-6 lg:px-8 pb-8 md:pb-12">
+        <Card
+          className={[
+            'w-full relative overflow-hidden',
+            'bg-black/[0.96]',
+            'min-h-[600px] md:h-[640px] lg:h-[720px]',
+            'rounded-2xl',
+          ].join(' ')}
+        >
+          <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
 
-          <nav className="hidden lg:block liquid-glass rounded-[28px] px-[52px] py-[24px]" aria-label="Main navigation">
-            <ul className="flex gap-10">
-              {NAV_LINKS.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="uppercase transition-colors hover:text-[#6FFF00]"
-                    style={{ ...FONT.anton, ...FONT_SIZE.nav, color: COLORS.cream }}
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          <div className="flex flex-col md:flex-row h-full min-h-[600px] md:min-h-0">
+            {/* Left — content */}
+            <div className="flex-1 p-6 md:p-8 lg:p-12 relative z-10 flex flex-col justify-center">
+              <span className="text-xs md:text-sm text-neutral-400 uppercase tracking-[0.2em] mb-4">
+                Orbis · Interactive Collection
+              </span>
 
-          <SocialIcons className="hidden lg:flex" />
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 flex flex-col justify-center lg:justify-end pb-0 lg:pb-20">
-          <div className="lg:ml-32 max-w-full lg:max-w-[780px]">
-            <div className="relative inline-block">
-              <h1
-                className="uppercase leading-[1.05] lg:leading-[1]"
-                style={{ ...FONT.anton, ...FONT_SIZE.heroHeading, color: COLORS.cream }}
-              >
-                Beyond Earth
+              <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.05] bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+                Interactive 3D
                 <br />
-                And (Its) Familiar
-                <br />
-                Boundaries
+                NFT Experience
               </h1>
 
-              <span
-                className="absolute -right-4 sm:right-0 top-1/2 -translate-y-1/2 -rotate-1 opacity-90 mix-blend-exclusion pointer-events-none select-none"
-                style={{ ...FONT.condiment, ...FONT_SIZE.heroAccent, color: COLORS.neon }}
-              >
-                NFT collection
-              </span>
+              <p className="mt-4 md:mt-6 text-neutral-300 text-sm md:text-base lg:text-lg max-w-lg leading-relaxed">
+                Bring your designs to life with beautiful 3D scenes. Explore a curated collection of
+                space objects that capture attention and define what's next.
+              </p>
+
+              <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3">
+                <Button
+                  size="lg"
+                  onClick={scrollToGallery}
+                  className="group"
+                >
+                  Get Started
+                  <ArrowRight
+                    size={18}
+                    className="ml-2 transition-transform group-hover:translate-x-1"
+                  />
+                </Button>
+                <Button size="lg" variant="outline" onClick={scrollToAbout}>
+                  <Play size={16} className="mr-2" />
+                  Learn More
+                </Button>
+              </div>
+
+              {/* Stats row */}
+              <div className="mt-8 md:mt-10 flex gap-6 md:gap-10 text-neutral-400 text-xs md:text-sm">
+                <div>
+                  <div className="text-white text-xl md:text-2xl font-bold">3.2K</div>
+                  <div>Collectors</div>
+                </div>
+                <div>
+                  <div className="text-white text-xl md:text-2xl font-bold">120</div>
+                  <div>Objects</div>
+                </div>
+                <div>
+                  <div className="text-white text-xl md:text-2xl font-bold">9.1</div>
+                  <div>Avg. Rarity</div>
+                </div>
+              </div>
             </div>
 
-            <SocialIcons className="lg:hidden mt-8 justify-center" />
+            {/* Right — Spline (or placeholder on mobile) */}
+            <div className="flex-1 relative min-h-[260px] sm:min-h-[320px] md:min-h-0">
+              {isDesktop ? (
+                <Suspense
+                  fallback={<div className="w-full h-full bg-gradient-to-br from-neutral-900 to-black" />}
+                >
+                  <SplineScene scene={SPLINE_URL} className="w-full h-full" />
+                </Suspense>
+              ) : (
+                <MobileVisualPlaceholder />
+              )}
+            </div>
           </div>
-        </div>
+        </Card>
       </div>
     </section>
   )

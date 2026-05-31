@@ -8,6 +8,16 @@
   --color-bg: #010828;
   --color-cream: #EFF4FF;
   --color-neon: #6FFF00;
+
+  --color-card: #000000;
+  --color-card-foreground: #ffffff;
+
+  --animate-spotlight: spotlight 2s ease 0.5s 1 forwards;
+}
+
+@keyframes spotlight {
+  0%   { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
+  100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
 }
 
 * {
@@ -17,9 +27,10 @@
 }
 
 html, body {
-  background-color: #010828;
+  background-color: #000000;
   color: #EFF4FF;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .liquid-glass {

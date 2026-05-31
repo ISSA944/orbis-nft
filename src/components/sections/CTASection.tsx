@@ -11,7 +11,7 @@ const socialContainerStyle = {
 
 export default function CTASection() {
   return (
-    <section className="relative w-full overflow-hidden">
+    <section id="contact" className="relative w-full overflow-hidden">
       <VideoPlayer
         src={CTA_VIDEO}
         className="w-full h-auto block"

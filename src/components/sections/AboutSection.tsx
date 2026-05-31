@@ -9,7 +9,7 @@ const decorativeParagraphs = [0, 1] as const
 
 export default function AboutSection() {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden">
+    <section id="about" className="relative w-full min-h-screen overflow-hidden">
       <VideoPlayer
         src={ABOUT_VIDEO}
         className="absolute inset-0 w-full h-full object-cover"

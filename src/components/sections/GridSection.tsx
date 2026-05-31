@@ -4,7 +4,7 @@ import { FONT, FONT_SIZE, COLORS } from '../../constants/styles'
 
 export default function GridSection() {
   return (
-    <section className="relative w-full py-16 lg:py-24" style={{ backgroundColor: COLORS.bg }}>
+    <section id="gallery" className="relative w-full py-16 lg:py-24" style={{ backgroundColor: COLORS.bg }}>
       <div className="max-w-[1831px] mx-auto px-5 sm:px-8 lg:px-12">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 lg:gap-0 mb-12 lg:mb-16">
